@@ -23,19 +23,55 @@ class BooksController < ApplicationController
 
   # POST /books
   # POST /books.json
+
   def create
+    # @book = Book.new
+    # @book.isbn      = params[:book][:isbn]
+    # @book.title     = params[:book][:title]
+    # @book.price     = params[:book][:price]
+    # @book.publish   = params[:book][:publish]
+    # @book.published = params[:book][:published]
+    # @book.cd        = params[:book][:cd]
+
+    # render text: params[:book].inspect
+    # return
+
     @book = Book.new(book_params)
+    # @book = Book.new(params[:book])
+
 
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render :show, status: :created, location: @book }
+        # format.html { redirect_to @book, info: 'Book was successfully created.' }
+
+        # format.html {
+        #   flash[:msg] = 'Book was successfully created.'
+        #   redirect_to @book
+        # }
+
+        format.json { render action: 'show', status: :created, location: @book }
       else
-        format.html { render :new }
+        format.html { render action: 'new' }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
   end
+
+  #
+  # def create
+  #   @book = Book.new(book_params)
+  #
+  #   respond_to do |format|
+  #     if @book.save
+  #       format.html { redirect_to @book, notice: 'Book was successfully created.' }
+  #       format.json { render :show, status: :created, location: @book }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @book.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
